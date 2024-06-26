@@ -2,7 +2,7 @@ const gameOptions = ["rock", "paper", "scissors"];
 
 //function that randomly returns “rock”, “paper” or “scissors to get computer choice
 function getComputerChoice() {
-    compChoice = gameOptions[Math.floor(Math.random() * gameOptions.length)];
+    const compChoice = gameOptions[Math.floor(Math.random() * gameOptions.length)];
     console.log(compChoice);
     return compChoice;
 };
@@ -11,13 +11,21 @@ function getComputerChoice() {
 function getHumanChoice() {
     let state = true;
     while (state) { 
-        userInput = prompt("Enter you choice(rock, paper or scissors):");
-        userInput = userInput.toLowerCase();
-        if (gameOptions.includes(userInput.trim()) === true){
-            console.log(userInput);
-            state = false;
-            return userInput;
-        };
+        let userInput = prompt("Enter you choice(rock, paper or scissors):");
+        if (userInput == null || userInput.trim() == ""){
+            console.log("Empty input or cancel. Please try again.");
+        }
+        else{
+            userInput = userInput.toLowerCase().trim();
+            if (gameOptions.includes(userInput) === true){
+                console.log(userInput);
+                state = false;
+                return userInput;
+            } else {
+                console.log("Invalid choice. Please try again")
+            };
+        }
+
 
     };
 };
@@ -49,8 +57,9 @@ function playRound(userInput, compChoice) {
 //function that calls playRound to play 5 rounds, keeps track of the scores and declares a winner at the end
 function playGame(){
     for (let i = 0; i < 5; i++){
-        let userInput = getHumanChoice();
-        let compChoice = getComputerChoice();
+        console.log(`Round ${i + 1}`)
+        const userInput = getHumanChoice();
+        const compChoice = getComputerChoice();
 
         playRound(userInput, compChoice);
 
